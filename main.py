@@ -1,11 +1,17 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask import send_file
+from tempfile import TemporaryFile
 
-from app.box_part import BoxPart
+from app.rectangular_part import RectangularPart
+from app.dimension import Dimension
 
 app = Flask(__name__)
 app.config.from_pyfile('config/config.cfg')
+
+def extract_dimensions(dimension_fields):
+  return { dimension: Dimension(request.form[dimension], request.form[dimension + "_units"]) for dimension in dimension_fields }
 
 @app.route("/", methods=['GET'])
 def index():
@@ -16,11 +22,14 @@ def ping():
   return "pong"
 
 @app.route("/box", methods=['POST'])
-def create_box():
-  box_params = request.get_json()
-  dimensions = { dimension: box_params[dimension] for dimension in BoxPart.dimensions() }
-  bp = BoxPart(dimensions, box_params['volume_removed'] or 0)
-  return bp.to_step()
+def create_box_step():
+  rp = RectangularPart(extract_dimensions(RectangularPart.dimensions()),
+                       request.form['volume_removed'])
+
+  step_file = rp.export_step(TemporaryFile())
+  filename = rp.to_string() + ".STEP"
+
+  return send_file(step_file, as_attachment=True, attachment_filename=filename)
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0")
