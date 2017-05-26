@@ -1,9 +1,15 @@
 from flask import Flask
 from flask import request
+from flask import render_template
 
-from box_part import BoxPart
+from app.box_part import BoxPart
 
 app = Flask(__name__)
+app.config.from_pyfile('config/config.cfg')
+
+@app.route("/", methods=['GET'])
+def index():
+  return render_template("index.html")
 
 @app.route("/ping")
 def ping():
