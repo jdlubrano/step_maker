@@ -1,0 +1,9 @@
+cadquery
+click==6.7
+Flask==0.12.2
+itsdangerous==0.24
+Jinja2==2.9.6
+MarkupSafe==1.0
+Pivy==0.5.0
+pyparsing==2.2.0
+Werkzeug==0.12.2

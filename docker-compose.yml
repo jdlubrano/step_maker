@@ -1,0 +1,12 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+      args:
+        - PORT
+    env_file: .env
+    ports:
+     - "${PORT}:${PORT}"
+    volumes:
+     - .:/app
