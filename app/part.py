@@ -3,7 +3,10 @@ import cadquery
 class Part:
   def __init__(self, dimensions, volume_removed=None):
     self.dimensions = dimensions
-    self.volume_removed = volume_removed or 0
+    try:
+      self.volume_removed = float(volume_removed) / 100.0
+    except TypeError:
+      self.volume_removed = 0.0
 
   def dimensions_str(self):
     return '_'.join([dimension.to_string() for dimension in self.dimensions.values()])
@@ -12,7 +15,7 @@ class Part:
     return "part"
 
   def to_string(self):
-    return '_'.join([self.part_type(), self.dimensions_str(), "removed", self.volume_removed])
+    return '_'.join([self.part_type(), self.dimensions_str(), "removed", str(self.volume_removed * 100)])
 
   def shape(self):
     return None
