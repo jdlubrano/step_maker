@@ -44,7 +44,26 @@ class RectangularPartTest(unittest.TestCase):
   def test_number_of_holes(self):
     self.assertEqual(self.default_part(10).number_of_holes(), 1)
     self.assertEqual(self.default_part(20).number_of_holes(), 2)
+    self.assertEqual(self.part(self.dimensions(2, 8), 40).number_of_holes(), 3)
 
   def test_hole_radius(self):
     self.assertEqual(self.default_part(10).hole_radius(), sqrt(0.5 / pi))
     self.assertAlmostEqual(self.default_part(20).hole_radius(), sqrt(0.5 / pi))
+
+  def test_holes_along_x(self):
+    self.assertEqual(
+      self.part(self.dimensions(6), 20).holes_along_x(),
+      [(-1, 0), (1, 0)])
+
+    self.assertEqual(
+      self.part(self.dimensions(8, 2), 40).holes_along_x(),
+      [(-2, 0), (0, 0), (2, 0)])
+
+  def test_holes_along_y(self):
+    self.assertEqual(
+      self.part(self.dimensions(1, 6), 20).holes_along_y(),
+      [(0, -1), (0, 1)])
+
+    self.assertEqual(
+      self.part(self.dimensions(2, 8), 40).holes_along_y(),
+      [(0, -2), (0, 0), (0, 2)])
