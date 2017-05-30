@@ -37,7 +37,7 @@ def create_cylinder_step():
   cp = CylindricalPart(extract_dimensions(CylindricalPart.dimensions()))
 
   step_file = cp.export_step(TemporaryFile())
-  filename = cp.to_string() + ".STEP"
+  filename = cp.to_string() + "_DUMMY.STEP"
 
   return send_file(step_file, as_attachment=True, attachment_filename=filename)
 
