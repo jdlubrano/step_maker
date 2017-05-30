@@ -11,15 +11,30 @@ from app.rectangular_part import RectangularPart
 app = Flask(__name__)
 app.config.from_pyfile('config/config.cfg')
 
+def setup_logging():
+  if not app.debug:
+    import logging
+    from logging.handlers import RotatingFileHandler
+
+    formatter = logging.Formatter(
+        "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
+    handler = RotatingFileHandler("log/application.log", maxBytes=10000000, backupCount=5)
+    handler.setFormatter(formatter)
+    handler.setLevel(logging.INFO)
+    app.logger.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+
 def extract_dimensions(dimension_fields):
   return { dimension: Dimension(request.form[dimension], request.form[dimension + "_units"]) for dimension in dimension_fields }
 
 @app.route("/", methods=['GET'])
 def index():
+  app.logger.info("Index rendered: " + request.remote_addr)
   return render_template("index.html")
 
 @app.route("/ping")
 def ping():
+  app.logger.info("PING: " + request.remote_addr)
   return "pong"
 
 @app.route("/box", methods=['POST'])
@@ -29,6 +44,7 @@ def create_box_step():
 
   step_file = rp.export_step(TemporaryFile())
   filename = rp.to_string() + "_DUMMY.STEP"
+  app.logger.info("Creating " + filename)
 
   return send_file(step_file, as_attachment=True, attachment_filename=filename)
 
@@ -39,8 +55,10 @@ def create_cylinder_step():
 
   step_file = cp.export_step(TemporaryFile())
   filename = cp.to_string() + "_DUMMY.STEP"
+  app.logger.info("Creating " + filename)
 
   return send_file(step_file, as_attachment=True, attachment_filename=filename)
 
 if __name__ == "__main__":
+  setup_logging()
   app.run(host="0.0.0.0")
