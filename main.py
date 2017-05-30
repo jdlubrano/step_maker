@@ -34,7 +34,8 @@ def create_box_step():
 
 @app.route("/cylinder", methods=['POST'])
 def create_cylinder_step():
-  cp = CylindricalPart(extract_dimensions(CylindricalPart.dimensions()))
+  cp = CylindricalPart(extract_dimensions(CylindricalPart.dimensions()),
+                       request.form['volume_removed'])
 
   step_file = cp.export_step(TemporaryFile())
   filename = cp.to_string() + "_DUMMY.STEP"
