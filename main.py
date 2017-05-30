@@ -28,7 +28,7 @@ def create_box_step():
                        request.form['volume_removed'])
 
   step_file = rp.export_step(TemporaryFile())
-  filename = rp.to_string() + ".STEP"
+  filename = rp.to_string() + "_DUMMY.STEP"
 
   return send_file(step_file, as_attachment=True, attachment_filename=filename)
 
