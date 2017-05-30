@@ -24,7 +24,7 @@
                 {% for dimension in ['length', 'width', 'thickness'] %}
                   <div class="form-group row">
                     <div class="col-xs-12">
-                      <label for="rectangle-{{ dimension }}">{{ dimension.title() }}</label>
+                      <label for="rectangle-{{ dimension }}">{{ dimension.title() }} (in.)</label>
                     </div>
                     <div class="col-md-6">
                       <input type="number"
@@ -34,17 +34,7 @@
                              id="rectangle-{{ dimension }}"
                              name="{{ dimension }}"
                              placeholder="{{ dimension.title() }}">
-                    </div>
-                    <div class="col-md-6 unit-radio-buttons">
-                      <label class="radio-inline">
-                        <input type="radio" name="{{ dimension }}_units" value="in" checked="checked">in
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="{{ dimension }}_units" value="cm">cm
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="{{ dimension }}_units" value="mm">mm
-                      </label>
+                      <input type="hidden" name="{{ dimension }}_units" value="in">
                     </div>
                   </div>
                 {% endfor %}
@@ -81,7 +71,7 @@
                 {% for dimension in ['length', 'diameter'] %}
                   <div class="form-group row">
                     <div class="col-xs-12">
-                      <label for="cylinder-{{ dimension }}">{{ dimension.title() }}</label>
+                      <label for="cylinder-{{ dimension }}">{{ dimension.title() }} (in.)</label>
                     </div>
                     <div class="col-md-6">
                       <input type="number"
@@ -91,17 +81,7 @@
                              id="cylinder-{{ dimension }}"
                              name="{{ dimension }}"
                              placeholder="{{ dimension.title() }}">
-                    </div>
-                    <div class="col-md-6 unit-radio-buttons">
-                      <label class="radio-inline">
-                        <input type="radio" name="{{ dimension }}_units" value="in" checked="checked">in
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="{{ dimension }}_units" value="cm">cm
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="{{ dimension }}_units" value="mm">mm
-                      </label>
+                      <input type="hidden" name="{{ dimension }}_units" value="in">
                     </div>
                   </div>
                 {% endfor %}
