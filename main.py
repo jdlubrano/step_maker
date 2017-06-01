@@ -25,7 +25,7 @@ def setup_logging():
     app.logger.addHandler(handler)
 
 def extract_dimensions(dimension_fields):
-  return { dimension: Dimension(request.form[dimension], request.form[dimension + "_units"]) for dimension in dimension_fields }
+  return { dimension: Dimension(request.form[dimension], request.form["units"]) for dimension in dimension_fields }
 
 @app.route("/", methods=['GET'])
 def index():

@@ -59,4 +59,4 @@ class RectangularPart(Part):
     return self.box().faces(">Z").workplane().pushPoints(self.hole_locations()).hole(self.hole_diameter())
 
   def shape(self):
-    return self.box_with_holes()
+    return self.box_with_holes() if self.volume_removed > 0 else self.box()

@@ -5,7 +5,7 @@ class Part:
     self.dimensions = dimensions
     try:
       self.volume_removed = float(volume_removed) / 100.0
-    except TypeError:
+    except (TypeError, ValueError):
       self.volume_removed = 0.0
 
   def dimensions_str(self):
