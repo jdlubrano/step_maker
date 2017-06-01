@@ -2,6 +2,10 @@ body {
   padding-top: 2em;
 }
 
-.unit-radio-buttons {
+.units {
   padding-top: 0.5em;
+}
+
+.units .units-label {
+  margin-right: 1em;
 }

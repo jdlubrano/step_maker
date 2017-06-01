@@ -34,4 +34,4 @@ class CylindricalPart(Part):
     return self.cylinder().faces(">Z").workplane().hole(self.hole_diameter())
 
   def shape(self):
-    return self.cylinder_with_hole()
+    return self.cylinder_with_hole() if self.volume_removed > 0 else self.cylinder()
