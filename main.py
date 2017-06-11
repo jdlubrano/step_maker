@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -9,7 +10,8 @@ from app.cylindrical_part import CylindricalPart
 from app.rectangular_part import RectangularPart
 
 app = Flask(__name__)
-app.config.from_pyfile('config/config.cfg')
+app.debug = os.environ.get('DEBUG') or False
+app.config['TEMPLATES_AUTO_RELOAD'] = os.environ.get('TEMPLATES_AUTO_RELOAD') or False
 
 def setup_logging():
   if not app.debug:
@@ -61,4 +63,4 @@ def create_cylinder_step():
 
 if __name__ == "__main__":
   setup_logging()
-  app.run(host="0.0.0.0")
+  app.run(host="0.0.0.0", port=int(os.environ.get('PORT')))
