@@ -22,4 +22,7 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
+RUN useradd -m stepmaker
+USER stepmaker
+
 CMD ["python", "main.py"]
